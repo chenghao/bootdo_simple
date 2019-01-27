@@ -1,0 +1,94 @@
+
+var prefix = "/${pathName}/${classname}";
+
+$(function() {
+	load();
+});
+
+function load() {
+	var columns = [
+		{ checkbox : true },
+		#foreach($column in $columns)
+		{ field : '${column.attrname}', title : '${column.comments}' },
+		#end
+		{ field : 'id', title : '操作', align : 'center',
+			formatter : function(value, row, index) {
+				var e = '<a class="btn btn-primary btn-sm '+s_edit_h+'" href="#" mce_href="#" title="编辑" onclick="edit(\''
+						+ row.${pk.attrname}
+						+ '\')"><i class="fa fa-edit"></i></a> ';
+				var d = '<a class="btn btn-warning btn-sm '+s_remove_h+'" href="#" title="删除"  mce_href="#" onclick="remove(\''
+						+ row.${pk.attrname}
+						+ '\')"><i class="fa fa-remove"></i></a> ';
+				return e + d ;
+			}
+		}
+	];
+
+	genList(prefix + "/list", columns, function (params) {
+		var p = getParam();
+		p["limit"] = params.limit;
+		p["offset"] = params.offset;
+		return p;
+	});
+}
+
+function getParam() {
+	var param = {
+
+	};
+	return param;
+}
+
+function reLoad(page) {
+	refreshTable(getParam(), page);
+}
+
+function add() {
+	var opts = {
+		title : '增加',
+		maxmin : false
+	};
+	openwin(prefix + '/add', 800, 520, opts);
+}
+
+function edit(id) {
+	var opts = {
+		title : '编辑',
+		maxmin : false
+	};
+	openwin(prefix + '/edit/' + id, 800, 520, opts);
+}
+
+function remove(id) {
+	ajaxConfirm('确定要删除选中的记录？', prefix + "/remove", function (data) {
+		if (data.code == 0) {
+			layer_msg(data.msg);
+			reLoad();
+		} else {
+			layer_msg(data.msg);
+		}
+	}, {'${pk.attrname}': id});
+}
+
+function batchRemove() {
+	var rows = $('#exampleTable').bootstrapTable('getSelections'); // 返回所有选择的行，当没有选择的记录时，返回一个空数组
+	if (rows.length == 0) {
+		layer_msg("请选择要删除的数据");
+		return;
+	}
+
+	var ids = new Array();
+	// 遍历所有选择的行数据，取每条数据对应的ID
+	$.each(rows, function(i, row) {
+		ids[i] = row['${pk.attrname}'];
+	});
+
+	ajaxConfirm("确认要删除选中的'" + rows.length + "'条数据吗?", prefix + "/batchRemove", function (data) {
+		if (data.code == 0) {
+			layer_msg(data.msg);
+			reLoad();
+		} else {
+			layer_msg(data.msg);
+		}
+	}, {"ids" : ids});
+}
