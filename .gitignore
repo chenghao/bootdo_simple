@@ -60,3 +60,5 @@ fabric.properties
 /bootdo.iml
 /target
 /applog
+
+**/.DS_Store

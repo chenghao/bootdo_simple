@@ -7,29 +7,20 @@ $.validator.setDefaults({
 		save();
 	}
 });
-function save() {
-	$.ajax({
-		cache : true,
-		type : "POST",
-		url :"/common/job/save",
-		data : $('#signupForm').serialize(),
-		async : false,
-		error : function(request) {
-			laryer.alert("Connection error");
-		},
-		success : function(data) {
-			if (data.code == 0) {
-				parent.layer.msg("保存成功");
-				parent.reLoad();
-				var index = parent.layer.getFrameIndex(window.name); // 获取窗口索引
-				parent.layer.close(index);
 
-			} else {
-				parent.layer.alert(data.msg)
-			}
+function save() {
+	ajaxRequest(parent.prefix + "/save", function (data) {
+		if (data.code == 0) {
+			layer_msg(data.msg);
+			parent.reLoad();
+
+			parent.layer.close(parent.layer.getFrameIndex(window.name)); //关闭窗口
+		} else {
+			layer_alert(data.msg);
 		}
-	});
+	}, $('#signupForm').serialize(), "POST");
 }
+
 function validateRule() {
 	var icon = "<i class='fa fa-times-circle'></i> ";
 	$("#signupForm").validate({

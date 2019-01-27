@@ -33,29 +33,53 @@
                         </button>
                         <div class="hr-line-dashed"></div>
                         <ul class="folder-list" style="padding: 0">
-                            <li><a href="javascript:void(0)" class="file-control hactive" :class="{'aactive':type === ''}"
-                                   v-on:click="changeType('')"><i class="fa fa-folder"></i>所有文件</a></li>
-
-                            <li><a href="javascript:void(0)" class="file-control hactive" :class="{'aactive':type === 0}"
-                                   v-on:click="changeType(0)"><i class="fa fa-folder"></i>图片</a></li>
-
-                            <li><a href="javascript:void(0)" :class="{'aactive':type === 1}"
-                                   v-on:click="changeType(1)" class="file-control hactive"><i class="fa fa-folder"></i>文档</a>
+                            <li>
+                                <a href="javascript:void(0)" class="file-control hactive" :class="{'aactive':type === ''}"
+                                   v-on:click="changeType('')">
+                                    <i class="fa fa-folder"></i>所有文件
+                                </a>
                             </li>
 
-                            <li><a href="javascript:void(0)" v-on:click="changeType(2)" :class="{'aactive':type === 2}"
-                                   class="file-control hactive"><i class="fa fa-folder"></i>视频</a></li>
+                            <li>
+                                <a href="javascript:void(0)" class="file-control hactive" :class="{'aactive':type === 0}"
+                                   v-on:click="changeType(0)">
+                                    <i class="fa fa-folder"></i>图片
+                                </a>
+                            </li>
 
-                            <li><a href="javascript:void(0)" v-on:click="changeType(3)" :class="{'aactive':type === 3}"
-                                   class="file-control hactive"><i class="fa fa-folder"></i>音乐</a></li>
+                            <li>
+                                <a href="javascript:void(0)" :class="{'aactive':type === 1}"
+                                   v-on:click="changeType(1)" class="file-control hactive">
+                                    <i class="fa fa-folder"></i>文档
+                                </a>
+                            </li>
 
-                            <li><a href="javascript:void(0)" v-on:click="changeType(99)" :class="{'aactive':type === 99}"
-                                   class="file-control hactive"><i class="fa fa-folder"></i>其他</a></li>
+                            <li>
+                                <a href="javascript:void(0)" v-on:click="changeType(2)" :class="{'aactive':type === 2}"
+                                   class="file-control hactive">
+                                    <i class="fa fa-folder"></i>视频
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)" v-on:click="changeType(3)" :class="{'aactive':type === 3}"
+                                   class="file-control hactive">
+                                    <i class="fa fa-folder"></i>音乐
+                                </a>
+                            </li>
+
+                            <li>
+                                <a href="javascript:void(0)" v-on:click="changeType(99)" :class="{'aactive':type === 99}"
+                                   class="file-control hactive">
+                                    <i class="fa fa-folder"></i>其他
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+
         <div class="col-sm-9 animated fadeInRight">
             <div class="row">
                 <div class="col-sm-12">
@@ -70,11 +94,10 @@
                                     <br/>
                                     <small>{{row.createDate}}</small>
                                 </div>
-                                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;<button
-                                    class="btn btn-warning btn-xs copy" :url="row.url">复制
-                            </button>&nbsp; &nbsp; &nbsp; &nbsp;<button class="btn btn-danger btn-xs"
-                                                                        @click="remove(row.id)">删除
-                            </button>
+                                &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-warning btn-xs copy" :url="row.url">复制</button>
+                                &nbsp; &nbsp; &nbsp; &nbsp;
+                                <button class="btn btn-danger btn-xs" @click="remove(row.id)">删除</button>
                             </a>
                         </div>
                     </div>
@@ -209,12 +232,6 @@
             }
         });
     });
-
-    // function changeType(i) {
-    //     app.type = i;
-    //     app.offset = 0;
-    //     app.getData();
-    // }
 </script>
 </body>
 </html>

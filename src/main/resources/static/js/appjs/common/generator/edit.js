@@ -5,32 +5,23 @@ $().ready(function() {
 
 $.validator.setDefaults({
 	submitHandler : function() {
-		console.log('提交修改');
 		update();
 	}
 });
+
 function update() {
-	$.ajax({
-		cache : true,
-		type : "POST",
-		url : "/common/generator/update",
-		data : $('#signupForm').serialize(),// 你的formid
-		async : false,
-		error : function(request) {
-			parent.layer.alert("网络连接超时");
-		},
-		success : function(data) {
-			if (data.code == 0) {
-				parent.layer.msg(data.msg);
+	ajaxRequest(parent.prefix + "/update", function (data) {
+		if (data.code == 0) {
+			layer_msg(data.msg);
+			parent.reLoad();
 
-			} else {
-				parent.layer.msg(data.msg);
-			}
-
+			parent.layer.close(parent.layer.getFrameIndex(window.name)); //关闭窗口
+		} else {
+			layer_alert(data.msg);
 		}
-	});
-
+	}, $('#signupForm').serialize(), "POST");
 }
+
 function validateRule() {
 	var icon = "<i class='fa fa-times-circle'></i> ";
 	$("#signupForm").validate({

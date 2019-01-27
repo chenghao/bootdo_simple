@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <meta charset="utf-8">
 <head th:include="include :: header"></head>
 <body class="gray-bg">
@@ -12,27 +12,26 @@
 							<button type="button" class="btn  btn-primary" onclick="add()">
 								<i class="fa fa-plus" aria-hidden="true"></i>添加
 							</button>
-							<button type="button" class="btn  btn-danger"
-								onclick="batchRemove()">
+							<button type="button" class="btn  btn-danger" onclick="batchRemove()">
 								<i class="fa fa-trash" aria-hidden="true"></i>删除
 							</button>
 						</div>
-						<div class="columns pull-right">
-							<button class="btn btn-success" onclick="reLoad()">查询</button>
+
+						<!--<div class="columns pull-right">
+							<button class="btn btn-success" onclick="reLoad(1)">查询</button>
 						</div>
 						<div class="columns pull-right">
-							<input id="searchName" type="text" class="form-control"
-								placeholder="">
-						</div>
+							<input id="searchName" type="text" class="form-control" placeholder="">
+						</div>-->
 					</div>
-					<table id="exampleTable" data-mobile-responsive="true">
-					</table>
+
+					<table id="exampleTable" data-mobile-responsive="true"></table>
 				</div>
 			</div>
 		</div>
 	</div>
+
 	<div th:include="include :: footer"></div>
-	<script type="text/javascript"
-		src="/js/appjs/common/job/job.js"></script>
+	<script type="text/javascript" src="/js/appjs/common/job/job.js"></script>
 </body>
 </html>
