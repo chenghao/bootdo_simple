@@ -11,7 +11,7 @@ $.validator.setDefaults({
 function save() {
 	ajaxRequest(parent.prefix + "/save", function (data) {
 		if (data.code == 0) {
-			layer_msg("操作成功");
+			layer_msg(data.msg);
 			parent.reLoad();
 
 			parent.layer.close(parent.layer.getFrameIndex(window.name)); //关闭窗口
