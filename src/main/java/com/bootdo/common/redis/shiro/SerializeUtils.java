@@ -23,7 +23,6 @@ public class SerializeUtils {
      * @return
      */
     public static Object deserialize(byte[] bytes) {
-
         Object result = null;
 
         if (isEmpty(bytes)) {
@@ -36,12 +35,10 @@ public class SerializeUtils {
                 ObjectInputStream objectInputStream = new ObjectInputStream(byteStream);
                 try {
                     result = objectInputStream.readObject();
-                }
-                catch (ClassNotFoundException ex) {
+                } catch (ClassNotFoundException ex) {
                     throw new Exception("Failed to deserialize object type", ex);
                 }
-            }
-            catch (Throwable ex) {
+            } catch (Throwable ex) {
                 throw new Exception("Failed to deserialize", ex);
             }
         } catch (Exception e) {
@@ -60,7 +57,6 @@ public class SerializeUtils {
      * @return
      */
     public static byte[] serialize(Object object) {
-
         byte[] result = null;
 
         if (object == null) {
@@ -77,8 +73,7 @@ public class SerializeUtils {
                 objectOutputStream.writeObject(object);
                 objectOutputStream.flush();
                 result =  byteStream.toByteArray();
-            }
-            catch (Throwable ex) {
+            } catch (Throwable ex) {
                 throw new Exception("Failed to serialize", ex);
             }
         } catch (Exception ex) {

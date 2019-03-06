@@ -66,9 +66,7 @@ public class RedisCache<K, V> implements Cache<K, V> {
      * @param cache The cache manager instance
      * @param prefix The Redis key prefix
      */
-    public RedisCache(RedisManager cache,
-                      String prefix){
-
+    public RedisCache(RedisManager cache, String prefix){
         this( cache );
 
         // set the prefix
@@ -104,7 +102,6 @@ public class RedisCache<K, V> implements Cache<K, V> {
         } catch (Throwable t) {
             throw new CacheException(t);
         }
-
     }
 
     @Override

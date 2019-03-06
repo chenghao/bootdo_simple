@@ -25,7 +25,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.LinkedHashMap;
 
-//import org.apache.shiro.cache.CacheManager;
 
 /**
  * @author bootdo 1992lcg@163.com
@@ -40,6 +39,8 @@ public class ShiroConfig {
     private int port;
     @Value("${spring.redis.timeout}")
     private int timeout;
+    @Value("${spring.redis.db}")
+    private int db;
 
     @Value("${spring.cache.type}")
     private String cacheType ;
@@ -88,7 +89,6 @@ public class ShiroConfig {
         return shiroFilterFactoryBean;
     }
 
-
     @Bean
     public SecurityManager securityManager() {
         DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
@@ -119,9 +119,9 @@ public class ShiroConfig {
      */
     @Bean
     public AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor(SecurityManager securityManager) {
-        AuthorizationAttributeSourceAdvisor authorizationAttributeSourceAdvisor = new AuthorizationAttributeSourceAdvisor();
-        authorizationAttributeSourceAdvisor.setSecurityManager(securityManager);
-        return authorizationAttributeSourceAdvisor;
+        AuthorizationAttributeSourceAdvisor authorization = new AuthorizationAttributeSourceAdvisor();
+        authorization.setSecurityManager(securityManager);
+        return authorization;
     }
 
     /**
@@ -134,8 +134,9 @@ public class ShiroConfig {
         RedisManager redisManager = new RedisManager();
         redisManager.setHost(host);
         redisManager.setPort(port);
-        redisManager.setExpire(1800);// 配置缓存过期时间
-        //redisManager.setTimeout(1800);
+        redisManager.setExpire(tomcatTimeout);// 配置缓存过期时间
+        redisManager.setDb(db);
+        redisManager.setTimeout(timeout);
         redisManager.setPassword(password);
         return redisManager;
     }
@@ -151,7 +152,6 @@ public class ShiroConfig {
         redisCacheManager.setRedisManager(redisManager());
         return redisCacheManager;
     }
-
 
     /**
      * RedisSessionDAO shiro sessionDao层的实现 通过redis
@@ -198,6 +198,5 @@ public class ShiroConfig {
     CacheManager cacheManager(){
         return CacheManager.create();
     }
-
 
 }

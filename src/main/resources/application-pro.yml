@@ -13,8 +13,8 @@ spring:
     url: jdbc:mysql://127.0.0.1:3306/bootdo?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
     username: root
     password: root
-    initialSize: 1
-    minIdle: 3
+    initialSize: 10
+    minIdle: 5
     maxActive: 20
     # 配置获取连接等待超时的时间
     maxWait: 60000
@@ -34,8 +34,9 @@ spring:
     # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     # 合并多个DruidDataSource的监控数据
-    #useGlobalDataSourceStat: true
+    useGlobalDataSourceStat: true
   redis:
+      db: 1
       host: localhost
       port: 6379
       password:
@@ -51,3 +52,8 @@ spring:
           max-active: 100
           # 连接池最大阻塞等待时间（使用负值表示没有限制）
           max-wait: -1
+  devtools:
+    restart:
+      enabled: false
+  cache:
+    type: redis

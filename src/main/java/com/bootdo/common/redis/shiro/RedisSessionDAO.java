@@ -46,7 +46,7 @@ public class RedisSessionDAO extends AbstractSessionDAO {
 
         byte[] key = getByteKey(session.getId());
         byte[] value = SerializeUtils.serialize(session);
-        session.setTimeout(redisManager.getExpire()*1000);
+        session.setTimeout(redisManager.getExpire() * 1000);
         this.redisManager.set(key, value, redisManager.getExpire());
     }
 
@@ -134,6 +134,5 @@ public class RedisSessionDAO extends AbstractSessionDAO {
     public void setKeyPrefix(String keyPrefix) {
         this.keyPrefix = keyPrefix;
     }
-
 
 }

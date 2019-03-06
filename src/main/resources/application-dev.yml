@@ -10,9 +10,9 @@ spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3306/bootdo?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
-    username: debian-sys-maint
-    password: V2jJQOqW4i7htRS6
+    url: jdbc:mysql://127.0.0.1:3306/hwan_admin?useUnicode=true&characterEncoding=utf8&autoReconnect=true&allowMultiQueries=true
+    username: root
+    password: 123456
     initialSize: 1
     minIdle: 3
     maxActive: 20
@@ -36,9 +36,10 @@ spring:
     # 合并多个DruidDataSource的监控数据
     #useGlobalDataSourceStat: true
   redis:
+    db: 1
     host: localhost
     port: 6379
-    password:
+    password: lym123..
     # 连接超时时间（毫秒）
     timeout: 10000
     jedis:
@@ -51,3 +52,10 @@ spring:
         max-active: 100
         # 连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1
+  devtools:
+    restart:
+      enabled: false
+  cache:
+    type: ehcache
+    ehcache:
+      config: classpath:config/ehcache.xml

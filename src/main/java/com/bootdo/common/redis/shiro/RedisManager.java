@@ -23,8 +23,11 @@ public class RedisManager {
     @Value("${spring.redis.port}")
     private int port = 6379;
 
-    // 0 - never expire
-    private int expire = 0;
+    @Value("${spring.redis.db}")
+    private int db = -1;
+
+    @Value("${server.session-timeout}")
+    private int expire = 0; // 0 - never expire
 
     //timeout for jedis try to connect to redis server, not expire time! In milliseconds
     @Value("${spring.redis.timeout}")
@@ -44,14 +47,15 @@ public class RedisManager {
      */
     public void init() {
         if (jedisPool == null) {
-            if (password != null && !"".equals(password)) {
+            if(db > -1){
+                jedisPool = new JedisPool(new JedisPoolConfig(), host, port, timeout, password, db);
+            } else if (password != null && !"".equals(password)) {
                 jedisPool = new JedisPool(new JedisPoolConfig(), host, port, timeout, password);
             } else if (timeout != 0) {
                 jedisPool = new JedisPool(new JedisPoolConfig(), host, port, timeout);
             } else {
                 jedisPool = new JedisPool(new JedisPoolConfig(), host, port);
             }
-
         }
     }
 
@@ -184,6 +188,7 @@ public class RedisManager {
         return keys;
     }
 
+
     public String getHost() {
         return host;
     }
@@ -224,5 +229,11 @@ public class RedisManager {
         this.password = password;
     }
 
+    public int getDb() {
+        return db;
+    }
 
+    public void setDb(int db) {
+        this.db = db;
+    }
 }

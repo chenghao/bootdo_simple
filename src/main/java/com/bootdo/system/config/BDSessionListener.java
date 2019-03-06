@@ -22,7 +22,6 @@ public class BDSessionListener implements SessionListener {
 	@Override
 	public void onExpiration(Session session) {
 		sessionCount.decrementAndGet();
-
 	}
 
 	public int getSessionCount() {
